@@ -28,10 +28,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+
+        // Bypass per le rotte pubbliche, ad esempio registrazione e login
+        if (path.startsWith("/register") || path.startsWith("/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // prendi il token JWT dalla request
         String token = getJwtFromRequest(request);
 
-        // valida il token 
+        // valida il token
         if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
             // Get username from token
             String username = tokenProvider.getUsernameFromJWT(token);

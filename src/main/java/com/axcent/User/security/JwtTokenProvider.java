@@ -3,6 +3,7 @@ package com.axcent.User.security;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
@@ -48,14 +49,15 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(currentDate.getTime() + jwtExpirationInMs);
         Utente ut = udao.findByUsername(username);
 
+
         return Jwts.builder()
                 .setSubject(username)
                 .claim("userId", ut.getId())
-                .setIssuedAt(currentDate) // data di emissione
-                .setExpiration(expiryDate) // data di scadenza
-                .signWith(getSigningKey()) // firma con la chiave segreta
-                .compact(); // compatta il tutto in una stringa JWT
-
+                .claim("roles", authorities)
+                .setIssuedAt(currentDate)
+                .setExpiration(expiryDate)
+                .signWith(getSigningKey())
+                .compact();
     }
 
     // Estrae il nome utente (subject) da un token JWT valido
@@ -77,6 +79,11 @@ public class JwtTokenProvider {
                 .getBody();
 
         String roles = (String) claims.get("roles");
+
+        if (roles == null || roles.isEmpty()) {
+            // Se non ci sono ruoli, restituisci una lista vuota o eventualmente un ruolo di default
+            return List.of();
+        }
 
         return Arrays.stream(roles.split(","))
                 .map(SimpleGrantedAuthority::new)

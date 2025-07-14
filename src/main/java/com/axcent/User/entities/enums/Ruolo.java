@@ -1,4 +1,4 @@
-package com.axcent.User.enums;
+package com.axcent.User.entities.enums;
 
 public enum Ruolo
 {

@@ -1,6 +1,7 @@
 package com.axcent.User.entities;
 
-import com.axcent.User.enums.Mansione;
+import com.axcent.User.entities.enums.Mansione;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,6 @@ public class AnagraficaUtente
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="utente_id", referencedColumnName = "id")
+    @JsonBackReference
     private Utente utente;
 }

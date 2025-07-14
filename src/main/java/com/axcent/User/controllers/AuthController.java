@@ -31,17 +31,6 @@ public class AuthController
     private final AnagraficaService anagraficaService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping("/registrazione")
-    public ResponseEntity<?> registrazione(@RequestBody RegistrazioneDto registrazione)
-    {
-        try{
-            utenteService.registrazioneUtente(registrazione.getUtente());
-            anagraficaService.registrazioneAnagrafica(registrazione.getAnagraficaUtente(),registrazione.getUtente());
-            return ResponseEntity.ok(Map.of("message","Registrazione avvenuta con successo"));
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(Map.of("error",e.getMessage()));
-        }
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest loginRequest)
@@ -75,5 +64,6 @@ public class AuthController
     {
         return ResponseEntity.ok(Map.of("message","Logout effetuato con successo"));
     }
+
 
 }

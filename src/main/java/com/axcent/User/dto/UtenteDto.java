@@ -1,12 +1,10 @@
 package com.axcent.User.dto;
 
 import com.axcent.User.entities.Utente;
-import com.axcent.User.enums.Ruolo;
+import com.axcent.User.entities.enums.Ruolo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor

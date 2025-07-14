@@ -1,11 +1,11 @@
 package com.axcent.User.entities;
 
-import com.axcent.User.enums.Ruolo;
+import com.axcent.User.entities.enums.Ruolo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +25,7 @@ public class Utente
     private Ruolo ruolo;
 
     @OneToOne(mappedBy = "utente")
+    @JsonManagedReference
     private AnagraficaUtente anagraficaUtente;
 
 

@@ -27,4 +27,9 @@ public class AnagraficaService
         return adao.save(au);
 
     }
+
+    public AnagraficaUtente findByIdUtente(Long id)
+    {
+        return adao.findByUtenteId(id);
+    }
 }
